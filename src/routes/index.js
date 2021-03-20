@@ -9,18 +9,7 @@ router.use('/home', homeRoute);
 
 // path con retorno directo
 router.route('/').get((req, res) => {
-    console.log(__dirname)
     res.sendFile(path.join(__dirname + '../../html/index.html'));
-    // res.json(
-    //     {   
-    //         version: "0.0.1",
-    //         paths: {
-    //             autor :  "/autor",
-    //             home :   "/home",
-    //             status : "/health"
-    //         }
-    //     }
-    //   );
 })
 
 router.route('/autor').get((req,res) =>{

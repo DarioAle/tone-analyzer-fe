@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: despliegue-app-1
+  name: despliegue-fe
   labels:
-    name: despliegue-app-1
-    app: testing-kube-app-1
+    name: despliegue-fe
+    app: tone-analyzer-fe
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: testing-kube-pod
-      app: testing-kube-app-1
+      name: tone-analyzer-pod
+      app: tone-analyzer-fe
   template:
     metadata:
-      name: testing-kube-pod
+      name: tone-analyzer-pod
       labels:
-        name: testing-kube-pod
-        app: testing-kube-app-1
+        name: tone-analyzer-pod
+        app: tone-analyzer-fe
     spec:
       containers:
-      - name: testing-kube-container
-        image: 001219492244.dkr.ecr.us-east-1.amazonaws.com/testing-eks:latest
+      - name: tone-analyzer-container
+        image: 001219492244.dkr.ecr.us-east-1.amazonaws.com/tone-analyzer-fe:latest
         imagePullPolicy: Always
         resources:
           limits:
@@ -31,7 +31,7 @@ spec:
             cpu: "0.2"
         livenessProbe:
           httpGet:
-            path: /revisavivo
+            path: /health
             port: 3500
           initialDelaySeconds: 5
           periodSeconds: 5
