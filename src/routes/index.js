@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const path = require('path');
 
 // importamos los routes
 const homeRoute = require('./home');
@@ -8,30 +9,33 @@ router.use('/home', homeRoute);
 
 // path con retorno directo
 router.route('/').get((req, res) => {
-    res.json(
-        {   
-            version: "0.0.1",
-            paths: {
-                autor :  "/author",
-                home :   "/home",
-                status : "/revisavivo"
-            }
-        }
-    );
+    console.log(__dirname)
+    res.sendFile(path.join(__dirname + '../../html/index.html'));
+    // res.json(
+    //     {   
+    //         version: "0.0.1",
+    //         paths: {
+    //             autor :  "/autor",
+    //             home :   "/home",
+    //             status : "/health"
+    //         }
+    //     }
+    //   );
 })
 
-router.route('/author').get((req,res) =>{
+router.route('/autor').get((req,res) =>{
     res.json(
         {
             author : "Dario Arias",
+            servicio : "EKS en AWS"
         }
     )
 })
 
-router.route('/revisavivo').get((req,res) =>{
+router.route('/health').get((req,res) =>{
     res.json(
         {
-            status : "Estoy bien",
+            status : "OK",
         }
     )
 })

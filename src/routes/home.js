@@ -1,8 +1,18 @@
 const router = require('express').Router()
-const path = require('path');
 
 router.route('/').get((req, res) => {
-  res.sendFile(path.join(__dirname+'../../../src/html/index.html'));
+  res.json(
+    {   
+        version: "0.0.1",
+        paths: {
+            autor :  "/autor",
+            home :   "/home",
+            status : "/health"
+        }
+    }
+  );
+
 })
 
 module.exports = router
+
