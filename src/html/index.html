@@ -36,22 +36,29 @@
 		then Bootstrap JS -->
     <script>
       let fetchBtn = document.getElementById("fetchBtn");
+      let url = 'http://localhost:4500/tone';
       
       fetchBtn.addEventListener("click", buttonclickhandler);
       
       function buttonclickhandler() {
           // Instantiate an new XHR Object
-          let textInput = document.getElementById("textin").value;
+        let textInput = document.getElementById("textin").value;
           
-          const xhr = new XMLHttpRequest();
+        const json = {
+            "text" : `${textInput}`
+        };
+        
+        const xhr = new XMLHttpRequest();
           
           // Open an obejct (GET/POST, PATH,
           // ASYN-TRUE/FALSE)
           xhr.open(
-          "GET",
-          "http://dummy.restapiexample.com/api/v1/employees",
-          true
+          "POST",
+          url,
         );
+
+        // set `Content-Type` header
+        xhr.setRequestHeader('Content-Type', 'application/json');
 
         // When response is ready
         xhr.onload = function () {
@@ -62,8 +69,10 @@
             // Getting the ul element
             let list = document.getElementById("list");
             str = "";
-            for (key in obj.data) {
-              str += `<li>${obj.data[key].employee_name}</li>`;
+            // obj.tones.sort((a, b) => b.score - a.score)
+            console.log(obj.tones);
+            for (key in obj.tones) {
+              str += `<li style='font-size:${Math.pow(10,obj.tones[key].score) / 2}em;'>${obj.tones[key].tone_name}</li>`;
             }
             list.innerHTML = str;
           } else {
@@ -72,7 +81,8 @@
         };
 
         // At last send the request
-        xhr.send();
+
+        xhr.send(JSON.stringify(json));
       }
 
     </script>
